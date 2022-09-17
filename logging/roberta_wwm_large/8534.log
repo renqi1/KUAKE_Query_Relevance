@@ -1,0 +1,90 @@
+INFO: self config {
+  "aug_data_path": "../data/KUAKE/KUAKE-QQR_augment__.csv",
+  "batch_size": 64,
+  "class_list": [
+    "0",
+    "1",
+    "2"
+  ],
+  "config_file": "../pretrain_models/roberta_wwm_large_ext/bert_config.json",
+  "data_augment": true,
+  "dev_num_examples": 0,
+  "dev_path": "../data/KUAKE/KUAKE-QQR_dev.json",
+  "device": "cuda",
+  "diff_learning_rate": false,
+  "early_stop": false,
+  "head_learning_rate": 0.001,
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 1024,
+  "is_logging2file": true,
+  "learning_rate": 1e-05,
+  "logging_dir": "../logging/roberta_wwm_large",
+  "model_name_or_path": "../pretrain_models/roberta_wwm_large_ext/pytorch_model.bin",
+  "models_name": "roberta_wwm_large",
+  "multi_drop": 5,
+  "num_labels": 3,
+  "num_train_epochs": 5,
+  "other_data_dir": "../data/External/other_data",
+  "pad_size": 64,
+  "pretrain_path": "../pretrain_models/roberta_wwm_large_ext",
+  "require_improvement": 800,
+  "requires_grad": true,
+  "save_file": "roberta_wwm_large",
+  "save_path": "../my_model",
+  "stop_word_valid": true,
+  "task": "KUAKE",
+  "test_num_examples": 0,
+  "test_path": "../data/KUAKE/KUAKE-QQR_test.json",
+  "tokenizer_file": "../pretrain_models/roberta_wwm_large_ext/vocab.txt",
+  "train_num_examples": 0,
+  "train_path": "../data/KUAKE/KUAKE-QQR_train.json",
+  "use_model": "bert",
+  "warmup_proportion": 0.1,
+  "weight_decay": 0.01
+}
+
+INFO: ***** Running training *****
+INFO:   Train Num examples = 22789
+INFO:   Dev Num examples = 1600
+INFO:   Num Epochs = 5
+INFO:   Instantaneous batch size GPU/CPU = 64
+INFO:   Total optimization steps = 1785
+INFO:   Train device:cuda
+INFO: Iter:   20/ 357,  epoch:    1/   5,  Train Loss: 0.440124,  Train Acc: 30.55%,  Val Loss: 0.435323,  Val Acc: 57.50%,  Time: 10.37419319152832 
+INFO: Iter:   40/ 357,  epoch:    1/   5,  Train Loss: 0.395789,  Train Acc: 48.05%,  Val Loss: 0.399789,  Val Acc: 62.94%,  Time: 20.739436626434326 
+INFO: Iter:   60/ 357,  epoch:    1/   5,  Train Loss: 0.349034,  Train Acc: 53.44%,  Val Loss: 0.391705,  Val Acc: 62.94%,  Time: 31.16070532798767 
+INFO: Iter:   80/ 357,  epoch:    1/   5,  Train Loss: 0.376003,  Train Acc: 54.53%,  Val Loss: 0.399759,  Val Acc: 64.56%,  Time: 41.598427295684814 
+INFO: Iter:  100/ 357,  epoch:    1/   5,  Train Loss: 0.319582,  Train Acc: 63.52%,  Val Loss: 0.379189,  Val Acc: 59.94%,  Time: 52.1012921333313 
+INFO: Iter:  120/ 357,  epoch:    1/   5,  Train Loss: 0.252797,  Train Acc: 70.31%,  Val Loss: 0.362994,  Val Acc: 63.38%,  Time: 62.58309245109558 
+INFO: Iter:  140/ 357,  epoch:    1/   5,  Train Loss: 0.287374,  Train Acc: 75.70%,  Val Loss: 0.315720,  Val Acc: 71.19%,  Time: 73.07511878013611 
+INFO: Iter:  160/ 357,  epoch:    1/   5,  Train Loss: 0.297440,  Train Acc: 78.36%,  Val Loss: 0.282979,  Val Acc: 73.31%,  Time: 83.56732749938965 
+INFO: Iter:  180/ 357,  epoch:    1/   5,  Train Loss: 0.174959,  Train Acc: 78.36%,  Val Loss: 0.242115,  Val Acc: 78.31%,  Time: 94.07841968536377 
+INFO: Iter:  200/ 357,  epoch:    1/   5,  Train Loss: 0.306604,  Train Acc: 81.33%,  Val Loss: 0.242419,  Val Acc: 77.19%,  Time: 104.60198521614075 
+INFO: Iter:  220/ 357,  epoch:    1/   5,  Train Loss: 0.192101,  Train Acc: 83.67%,  Val Loss: 0.231133,  Val Acc: 78.38%,  Time: 115.14859056472778 
+INFO: model saved, path: ../my_model/best_roberta_wwm_large.pkl
+INFO: Iter:  240/ 357,  epoch:    1/   5,  Train Loss: 0.206024,  Train Acc: 86.80%,  Val Loss: 0.219180,  Val Acc: 79.38%,  Time: 127.5501184463501 *
+INFO: Iter:  260/ 357,  epoch:    1/   5,  Train Loss: 0.142460,  Train Acc: 84.30%,  Val Loss: 0.194425,  Val Acc: 81.38%,  Time: 138.08775186538696 
+INFO: model saved, path: ../my_model/best_roberta_wwm_large.pkl
+INFO: Iter:  280/ 357,  epoch:    1/   5,  Train Loss: 0.148919,  Train Acc: 86.09%,  Val Loss: 0.216765,  Val Acc: 80.19%,  Time: 150.3894281387329 *
+INFO: Iter:  300/ 357,  epoch:    1/   5,  Train Loss: 0.132397,  Train Acc: 86.41%,  Val Loss: 0.223808,  Val Acc: 79.19%,  Time: 160.93545365333557 
+INFO: model saved, path: ../my_model/best_roberta_wwm_large.pkl
+INFO: Iter:  320/ 357,  epoch:    1/   5,  Train Loss: 0.254971,  Train Acc: 86.64%,  Val Loss: 0.206342,  Val Acc: 81.94%,  Time: 173.26626324653625 *
+INFO: Iter:  340/ 357,  epoch:    1/   5,  Train Loss: 0.209261,  Train Acc: 85.86%,  Val Loss: 0.227139,  Val Acc: 79.56%,  Time: 183.80321383476257 
+INFO: Iter:    0/ 357,  epoch:    2/   5,  Train Loss: 0.243005,  Train Acc: 87.55%,  Val Loss: 0.210298,  Val Acc: 80.44%,  Time: 194.06876158714294 
+INFO: Iter:   20/ 357,  epoch:    2/   5,  Train Loss: 0.110885,  Train Acc: 88.52%,  Val Loss: 0.203641,  Val Acc: 81.06%,  Time: 204.61046266555786 
+INFO: Iter:   40/ 357,  epoch:    2/   5,  Train Loss: 0.065331,  Train Acc: 89.77%,  Val Loss: 0.212340,  Val Acc: 80.88%,  Time: 215.16904091835022 
+INFO: Iter:   60/ 357,  epoch:    2/   5,  Train Loss: 0.135957,  Train Acc: 90.23%,  Val Loss: 0.216246,  Val Acc: 81.56%,  Time: 225.72083020210266 
+INFO: model saved, path: ../my_model/best_roberta_wwm_large.pkl
+INFO: Iter:   80/ 357,  epoch:    2/   5,  Train Loss: 0.164997,  Train Acc: 90.23%,  Val Loss: 0.213204,  Val Acc: 82.50%,  Time: 238.08500623703003 *
+INFO: Iter:  100/ 357,  epoch:    2/   5,  Train Loss: 0.066771,  Train Acc: 90.70%,  Val Loss: 0.209470,  Val Acc: 82.50%,  Time: 248.6441569328308 
+INFO: Iter:  120/ 357,  epoch:    2/   5,  Train Loss: 0.106600,  Train Acc: 89.53%,  Val Loss: 0.204954,  Val Acc: 82.00%,  Time: 259.2113001346588 
+INFO: Iter:  140/ 357,  epoch:    2/   5,  Train Loss: 0.137177,  Train Acc: 89.92%,  Val Loss: 0.202785,  Val Acc: 80.75%,  Time: 269.7849905490875 
+INFO: Iter:  160/ 357,  epoch:    2/   5,  Train Loss: 0.122653,  Train Acc: 90.31%,  Val Loss: 0.203851,  Val Acc: 81.81%,  Time: 280.3541326522827 
+INFO: Iter:  180/ 357,  epoch:    2/   5,  Train Loss: 0.098390,  Train Acc: 88.83%,  Val Loss: 0.221879,  Val Acc: 79.38%,  Time: 290.94151520729065 
+INFO: Iter:  200/ 357,  epoch:    2/   5,  Train Loss: 0.066287,  Train Acc: 91.48%,  Val Loss: 0.220729,  Val Acc: 80.19%,  Time: 301.51582860946655 
+INFO: Iter:  220/ 357,  epoch:    2/   5,  Train Loss: 0.098175,  Train Acc: 89.61%,  Val Loss: 0.222763,  Val Acc: 79.75%,  Time: 312.0886404514313 
+INFO: Iter:  240/ 357,  epoch:    2/   5,  Train Loss: 0.075712,  Train Acc: 91.33%,  Val Loss: 0.233528,  Val Acc: 79.25%,  Time: 322.6642475128174 
+INFO: Iter:  260/ 357,  epoch:    2/   5,  Train Loss: 0.051106,  Train Acc: 91.41%,  Val Loss: 0.216592,  Val Acc: 81.31%,  Time: 333.356413602829 
+INFO: Iter:  280/ 357,  epoch:    2/   5,  Train Loss: 0.268620,  Train Acc: 90.39%,  Val Loss: 0.208829,  Val Acc: 82.38%,  Time: 343.9675896167755 
+INFO: Iter:  300/ 357,  epoch:    2/   5,  Train Loss: 0.137222,  Train Acc: 91.25%,  Val Loss: 0.209342,  Val Acc: 80.94%,  Time: 354.56447529792786 
+INFO: Iter:  320/ 357,  epoch:    2/   5,  Train Loss: 0.094937,  Train Acc: 90.08%,  Val Loss: 0.215779,  Val Acc: 81.06%,  Time: 365.1446077823639 
