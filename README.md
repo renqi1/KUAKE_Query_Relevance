@@ -2,15 +2,6 @@
 
 [竞赛链接](https://tianchi.aliyun.com/competition/entrance/532001/introduction)
 
-### Index
-
-1. 任务
-2. 参考
-3. 数据增强
-4. 模型选择
-5. 模型融合
-6. 代码说明
-
 ------
 
 ## 1.任务
@@ -49,7 +40,7 @@ Query（即搜索词）之间的相关性是评估两个Query所表述主题的�
 
 Roberta_large是目前大多数NLP任务的SOTA模型。在Roberta_large中文版本使用了动态掩码、全词掩码，增加了训练数据，并改变了生成的方式和语言模型的任务。因此，在医疗文本上，Roberta_large能更好地对文本进行编码。
 
--  Roberta_large_pair
+- Roberta_large_pair
 
 Roberta_large_pair是针对文本对任务提出的专门模型，能够较好地处理语义相似度或句子对问题。因此，在医疗文本相似度任务上，往往能够取得更好的结果。
 
@@ -141,7 +132,7 @@ pretrain_models 文件夹           预训练模型文件夹
 prediction_result 文件夹         预测结果
 ```
 
-## 3.运行环境
+## 7.运行环境
 
 * GPU RTX3090
 * ubuntu 20.04.1
@@ -151,9 +142,9 @@ prediction_result 文件夹         预测结果
 * transformers==4.21.1   
 * numpy==1.22.4
 
-## 4.运行说明
+## 8.运行说明
 
-### 4.1 数据增强
+### 8.1 数据增强
 ```
 1. 进入code文件夹下
 > cd code
@@ -163,7 +154,7 @@ prediction_result 文件夹         预测结果
 ```
 注： 请先确保项目目录下data/KUAKE存在json文件; 你也可以修改数据增强比例。
 
-### 4.2 训练
+### 8.2 训练
 ```
 1. 进入code文件夹下
 > cd code
@@ -173,7 +164,7 @@ prediction_result 文件夹         预测结果
 ```
 注： 请先确保下载预训练权重文件到pretrain_models/ERNIE; 训练后会在logging/ernie下生成log文件；模型会保存到my_model
 
-### 4.3 预测
+### 8.3 预测
 
 根据模型先修改test.py设置模型名字和路径，再运行test.py, 例如
 ```
