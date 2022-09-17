@@ -12,10 +12,15 @@
 ------
 
 ## 1.任务
+Query（即搜索词）之间的相关性是评估两个Query所表述主题的匹配程度，即判断Query-A和Query-B是否发生转义，以及转义的程度。
+给定Query-A和Query-B，判断他们之间的相关性。
+- 2分：表示A与B等价，表述完全一致
+- 1分： B为A的语义子集，B指代范围小于A
+- 0分：B为A的语义父集，B指代范围大于A； 或者A与B语义毫无关联
 
 ## 2.参考
 
-本人小白一枚，方案照着[公益AI之星”挑战赛-新冠疫情相似句对判定大赛第二名方案](https://github.com/thunderboom/text_similarity)做的。[比赛链接](https://tianchi.aliyun.com/competition/entrance/231776/introduction)
+本人小白一枚，方案照着[公益AI之星”挑战赛-新冠疫情相似句对判定大赛第二名方案](https://github.com/thunderboom/text_similarity)做的，这是[比赛链接]。(https://tianchi.aliyun.com/competition/entrance/231776/introduction)
 
 ## 3.数据增强
 
@@ -62,7 +67,7 @@ ERNIE:0.8321  Roberta_large:0.8578  Roberta_large_pair:0.8534
 
 **融合模型正确率**
 
-模型融合部分使用三个模型的输出概率乘对应权重相加：
+模型融合后正确率为0.8672， 部分使用三个模型的输出概率乘对应权重相加：
 
 ```
 weight1, weight2, weight3 = 0.5, 0.35, 0.05
@@ -70,7 +75,6 @@ final_output = weight1*outputs_pair+weight2*outputs_wwm+weight3*outputs_ernie
 max = np.max(final_output, axis=1).reshape(-1, 1)
 labels = np.where(final_output == max)[1]  
 ```
-Accuracy = 0.8672
 
 ## 2.代码说明
 
