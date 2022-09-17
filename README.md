@@ -25,10 +25,10 @@
 
 而如果标签为0或1，则传递性可能失效，但是经本人尝试，额外增强0和1标签对准确率略有提，我猜测是大多数据仍满足传递性，数据得到增强，不满足的则降低了模型过拟合
 
-数据增强比例设置在0.3-0.5
+数据增强比例：考虑到正负样本均衡， 标签0，1，2增强比例分别设置为0.1，0.15，0.3
 
 
-## 4模型选择
+## 4.模型选择
 
 使用预训练模型Bert作为基础模型结构，在pooler层后加了简单的全连接层和Sigmoid激活层。
 
@@ -56,8 +56,21 @@ Roberta_large_pair:https://github.com/CLUEbenchmark/CLUEPretrainedModels
 
 ## 模型融合
 
-在模型融合部分我们使用简单三个模型的输出概率求平均，得到最总的融合概率。然后根据融合概率和阈值的关系，得到相应对的标签。
+**单个模型最佳正确率**
 
+ERNIE:0.8321  Roberta_large:0.8578  Roberta_large_pair:0.8534
+
+**融合模型正确率**
+
+模型融合部分使用三个模型的输出概率乘对应权重相加：
+
+```
+weight1, weight2, weight3 = 0.5, 0.35, 0.05
+final_output = weight1*outputs_pair+weight2*outputs_wwm+weight3*outputs_ernie
+max = np.max(final_output, axis=1).reshape(-1, 1)
+labels = np.where(final_output == max)[1]  
+```
+Accuracy = 0.8672
 
 ## 2.代码说明
 
@@ -65,50 +78,33 @@ Roberta_large_pair:https://github.com/CLUEbenchmark/CLUEPretrainedModels
 ```
 .
 ├── code
-│   ├── augment_utils.py
 │   ├── bert.py
-│   ├── cross_validation.py
 │   ├── data_augment.py
 │   ├── DataProcessor.py
-│   ├── main.py
-│   ├── main.sh
-│   ├── medicine_dict_generate.py
 │   ├── run_ernie.py
 │   ├── run_large_roberta_pair.py
 │   ├── run_large_roberta_wwm_ext.py
+│   ├── test.py
+│   ├── test_mix.py
 │   ├── train_eval.py
-│   ├── train.sh
 │   └── utils.py
 ├── data
-│   ├── Dataset
-│   │   ├── dev.csv
-│   │   ├── test.csv
-│   │   └── train.csv
-│   └── External
-│       ├── other_data
-│       │   ├── chip2019.csv
-│       │   ├── medicine.txt
-│       │   ├── new_category.csv
-│       │   ├── original_chip2019.csv
-│       │   ├── stop_word.txt
-│       │   ├── train_augment.csv
-│       │   └── train_dev_augment.csv
-│       └── pretrain_models
-│           ├── chinese_roberta_wwm_large_ext_pytorch
-│           ├── ERNIE
-│           └── roberta_large_pair
+│   ├── KUAKE
+│   │   ├── KUAKE-QQR_dev.json
+│   │   ├── KUAKE-QQR_test.json
+│   │   └── KUAKE-QQR_train.json
+├── longging
+│   │── ernie
+│   │── roberta_large_pair
+│   │── roberta_wwm_large
+├── my_model
 ├── prediction_result
-│   └── result.csv
-├── README.md
-└── user_data
-    ├── logging
-    ├── model_data
-    │   ├── ernie.pkl
-    │   ├── roberta_large_pair_for_augment.pkl
-    │   ├── roberta_large_pair.pkl
-    │   └── roberta_wwm_large.pkl
-    └── tmp_data
-        └── try_medicine_sypmtom.txt        
+├── pretrain_models
+│   │── ERNIR
+│   │── roberta_large_pair
+│   │── roberta_wwm_large_ext
+└── README.md
+     
 ```
 
 ### 2.2 说明
