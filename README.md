@@ -56,11 +56,11 @@ Roberta_large_pair:https://github.com/CLUEbenchmark/CLUEPretrainedModels
 
 **单个模型最佳正确率**
 
-ERNIE:0.8321
+- ERNIE: 0.8321
 
-Roberta_large:0.8578
+- Roberta_large: 0.8578
 
-Roberta_large_pair:0.8534
+- Roberta_large_pair: 0.8534
 
 **融合模型正确率**
 
@@ -81,7 +81,6 @@ labels = np.where(final_output == max)[1]
 
 ### 6.1 代码文件结构
 ```
-.
 ├── code
 │   ├── bert.py
 │   ├── data_augment.py
@@ -149,20 +148,20 @@ prediction_result 文件夹         预测结果
 
 ### 8.1 数据增强
 ```
-1. 进入code文件夹下
+# 1. 进入code文件夹下
 > cd code
 
-2. 运行data_augment.py文件，进行数据扩充
+# 2. 运行data_augment.py文件，进行数据扩充
 > python data_augment.py
 ```
 注： 请先确保项目目录下data/KUAKE存在json文件; 你也可以修改数据增强比例。
 
 ### 8.2 训练
 ```
-1. 进入code文件夹下
+# 1. 进入code文件夹下
 > cd code
 
-2. 有三个训练文件，可以随意选择，以run_ernie.py为例, 进行模型训练
+# 2. 有三个训练文件，可以随意选择，以run_ernie.py为例, 进行模型训练
 > python run_ernie.py
 ```
 注： 请先确保下载预训练权重文件到pretrain_models/ERNIE; 训练后会在logging/ernie下生成log文件；模型会保存到my_model
@@ -174,7 +173,6 @@ prediction_result 文件夹         预测结果
 model_name = 'ernie'
 model_path = '../my_model/best_ernie.pkl'
 ```
-
 结果会保存到prediction_result
 
 如需预测混合模型，需要训练好三个模型，设置test_mix.py中模型路径和模型权重，运行test_mix.py
