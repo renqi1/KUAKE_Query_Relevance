@@ -20,7 +20,7 @@ Query（即搜索词）之间的相关性是评估两个Query所表述主题的�
 
 ## 2.参考
 
-本人小白一枚，方案照着[公益AI之星”挑战赛-新冠疫情相似句对判定大赛第二名方案](https://github.com/thunderboom/text_similarity)做的，这是[比赛链接]。(https://tianchi.aliyun.com/competition/entrance/231776/introduction)
+本人小白一枚，方案照着[公益AI之星”挑战赛-新冠疫情相似句对判定大赛第二名方案](https://github.com/thunderboom/text_similarity)做的，这是[比赛链接](https://tianchi.aliyun.com/competition/entrance/231776/introduction)。
 
 ## 3.数据增强
 
@@ -67,6 +67,8 @@ ERNIE:0.8321  Roberta_large:0.8578  Roberta_large_pair:0.8534
 
 **融合模型正确率**
 
+我觉得做模型融合融合不好，纯粹是为了提升正确率提升排名，浪费大量的算力获取一点不大的提升，哎，其实仅用Roberta_large_pair的效果就已经很好了
+
 模型融合后正确率为0.8672， 部分使用三个模型的输出概率乘对应权重相加：
 
 ```
@@ -104,141 +106,45 @@ labels = np.where(final_output == max)[1]
 ├── my_model
 ├── prediction_result
 ├── pretrain_models
-│   │── ERNIR
+│   │── ERNIE
 │   │── roberta_large_pair
 │   │── roberta_wwm_large_ext
 └── README.md
-     
+
 ```
 
 ### 2.2 说明
 
 1、 code部分  
 ``` 
-* bert.py                       bert模型文件  
-* DataProcessor.py              数据加载和处理文件  
-* utils.py                      包含数据特征转换等一些小的接口   
-* train_eval.py                 主要为模型训练、验证和测试的底层接口
-* cross_validation.py           交叉验证部分（对train_eval.py的封装）  
+* bert.py                       bert模型文件   
+* utils.py                      包含数据加载，特征转换等一些小的接口   
+* train_eval.py                 主要为模型训练、验证和测试的底层接口  
 * run_ernie.py                  单独运行ERNIE模型
 * run_large_roberta_pair.py     单独运行roberta_large_pair模型
-* run_large_roberta_wwm_ext.py  单独运行roberta_large_wwm_ext模型
-* main.py                       通过模型融合进行对测试集进行测试
-* train.sh                      通过脚本执行三个模型训练文件
-* main.sh                       通过脚本执行main.py
-* medicine_dict_generate.py     对train.csv和dev.csv抽取药名和病名（不可直接用，后期需要手工再分离）  
-* data_augment.py               数据增强部分（包括三部分）
-* augment_utils.py              数据增强时用到的一些接口
+* run_large_roberta_wwm_ext.py  单独运行roberta_large_wwm_ext模型  
+* data_augment.py               单独运行，获取增强数据集
+* test                          单独使用一个模型预测
+* test_mix                      模型融合预测
 ```
 
-2、 data部分  
+2、 其他部分  
 ```
-Dataset 文件夹                   为官方提供的原始数据
-
-External 文件夹                  为用作模型数据增强的数据
-* original_chip2019.csv         原始官方chip2019的train文件
-* stop_word.txt                 停用词词典
-* medicine.txt                  通过medicine_dict_generate.py程序筛选后，人工筛选出的药物词典
-* new_category.csv              新扩增的“肺结核”和“支气管炎”两个病种的数据
-* train_augment.csv             仅用train.csv通过传递性进行的1:1数据抽样（尽在模型训练对比用）
-* train_dev_augment.csv         用train.csv和dev.csv通过传递性进行的1:1数据抽样（在训练生成模型文件时用）
-* chip2019.csv                  仅用官方原始数据训练的roberta_large_pair模型对original_chip2019.csv筛选在预测概率在(0.20, 0.80)间的数据做1:1抽样
-
+data 文件夹                      为官方提供的原始数据
+logging 文件夹                   运行每个模型产生的logging日志
+my_model 文件夹                  自己训练的模型
 pretrain_models 文件夹           预训练模型文件夹
+prediction_result 文件夹         预测结果
 ```
-
-3、user_data部分
-```
-logging 文件夹                               运行每个模型产生的logging日志
-
-model_data 文件夹                            训练数据后，保存的模型文件
-* roberta_large_pair_for_augment.pkl        用作数据增强保存的模型文件（用官方提供的全部数据训练）
-* ernie.pkl                                 ernie模型文件
-* roberta_large_pair.pkl                    roberta_large_pair模型文件
-* roberta_wwm_large.pkl                     roberta_wwm_large模型文件
-```
-
-4、prediction_result部分
-```
-通过三个模型融合进行预测的结果，会保存在result.csv文件中
-```
-
-5、README.md 
-
 
 ## 3.运行环境
 
-* ubuntu 16.04.6
-* cuda == 10.2
-* CUDNN == 440.33.01
-* python == 3.7.4 
-* pytorch == 1.31 
-* transformers==2.3.0  
-* pandas==0.25.1  
-* numpy==1.17.2  
+* GPU RTX3090
+* ubuntu 20.04.1
+* cuda == 11.3
+* python == 3.8.13 
+* pytorch == 1.10.1 
+* transformers==4.21.1   
+* numpy==1.22.4
 
 ## 4.运行说明
-
-### 4.1 数据增强
-```bash
-# 1. 进入code文件夹下
-> cd code
-
-# 2. 运行data_augment.py文件，进行数据扩充
-> python data_augment.py
-```
-注：  
-1、请先确保项目目录下data/Dataset 存在train.csv、dev.csv和test.csv文件。（可从官网获取）   
-2、该步骤会在data/External/other_data文件下, 生成新增的四份数据，分别是：  
-
-* train_augment.csv  
-* train_dev_augment.csv  
-* new_category.csv  
-* chip2019.csv  
-
-3、若存在用于数据增强的数据文件，可跳过此步。      
-4、其中，由于最后训练模型文件时，采用了全数据（train+dev）的形式，故在数据增强会采用train_dev_augment.csv。    
-
-
-### 4.2 训练模型
-```bash
-# 1. 进入code文件夹下
-> cd code
-
-# 2. 运行train.sh文件, 进行模型训练（会训练三个模型, 需要一定时间）
-> bash train.sh
-```
-注：  
-1、 在训练生成模型文件时，确保data/External/other_data文件夹下有以下三份数据：  
-* train_dev_augment.csv  
-* new_category.csv  
-* chip2019.csv  
-
-2、 模型文件会保存在user_data/model_data文件夹下，分别是：  
-
-* ernie.pkl  
-* roberta_large_pair.pkl  
-* roberta_wwm_large.pkl  
-
-3、若存在可用的模型文件，可跳过此步。    
-4、 同时会在user_data/logging下生成logging文件。
-
-### 4.3 模型预测
-
-```bash
-# 1. 进入code文件夹下
-> cd code
-
-# 2. 运行main.sh文件, 进行预测
-> bash main.sh
-```
-注：  
-1、 在用模型文件进行预测时，确保user_data/model_data文件夹有以下文件：  
-
-* ernie.pkl  
-* roberta_large_pair.pkl  
-* roberta_wwm_large.pkl  
-
-2、预测结果会保存在prediction_result/result.csv文件中。  
-
-
