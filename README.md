@@ -58,9 +58,9 @@ Roberta_large_pair:https://github.com/CLUEbenchmark/CLUEPretrainedModels
 
 - ERNIE: 0.8321
 
-- Roberta_large: 0.8578
+- Roberta_large_wwm: 0.8534
 
-- Roberta_large_pair: 0.8534
+- Roberta_large_pair: 0.8578
 
 **融合模型正确率**
 
