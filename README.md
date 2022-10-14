@@ -2,6 +2,8 @@
 
 [竞赛链接](https://tianchi.aliyun.com/competition/entrance/532001/introduction)
 
+预训练模型链接在下面，需要自己去下载，解压后放到pretrain_models相应目录下
+
 ------
 
 ## 1.任务
