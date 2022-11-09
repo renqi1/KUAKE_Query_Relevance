@@ -1,4 +1,4 @@
-'采用余弦相似度和jaccard相似度，正确率只有70%，参考价值不大'
+'采用余弦相似度和jaccard相似度，正确率只有70%，参考价值不大，没事传着玩'
 
 import json
 import numpy as np
