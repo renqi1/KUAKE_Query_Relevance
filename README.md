@@ -3,7 +3,7 @@
 [竞赛链接](https://tianchi.aliyun.com/competition/entrance/532001/introduction)
 
 预训练模型链接在下面，需要自己去下载，解压后有三个文件bert_config.json, pytorch_model.bin, vocab.txt, 将这些放到pretrain_models相应模型目录下。
-希望大家不要就像完成任务一样只是跑通而已，代码并不难，重要的是理解代码。加油吧各位！
+希望大家不要就像完成任务一样只是跑通而已，代码并不难，重要的是理解代码。各位复现不出来就算了吧，真的很玄学的，代码看看就行了，我当初也调了20天左右。
 
 ------
 
