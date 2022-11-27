@@ -19,25 +19,26 @@ def np_softmax(x):
     softmax = x_exp / x_exp_row_sum
     return softmax
 
-def get_outputs(config, model):
+def get_outputs(config, path):
+    model = Bert(config).cuda()
+    model.load_state_dict(torch.load(path))
     tokenizer = BertTokenizer.from_pretrained(config.tokenizer_file)
     test_examples = read_csv(config.test_path)
     train_features = convert_examples_to_features(examples=test_examples, tokenizer=tokenizer,
                                                   max_length=config.pad_size, data_type='test')
     test_dataset = BuildDataSet(train_features)
     test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
-    outputs =[]
+    outputs = []
     model.eval()
     with torch.no_grad():
         for i, (input_ids, attention_mask, token_type_ids, labels) in enumerate(test_loader):
             input_ids = Variable(input_ids).cuda()
             attention_mask = Variable(attention_mask).cuda()
             token_type_ids = Variable(token_type_ids).cuda()
-            labels_tensor = Variable(labels).cuda()
-            output, loss = model(input_ids, attention_mask, token_type_ids, labels_tensor)
+            output, _ = model(input_ids, attention_mask, token_type_ids)
             output = output.data.cpu().numpy()
             outputs.extend(output)
-        outputs=np.array(outputs)
+        outputs = np.array(outputs)
     return np_softmax(outputs)
 
 
@@ -45,25 +46,12 @@ path_pair = '../my_model/best_roberta_large_pair.pkl'
 path_wwm = '../my_model/best_roberta_wwm_large.pkl'
 path_ernie = '../my_model/best_ernie.pkl'
 
+weight1, weight2, weight3 = 0.5, 0.35, 0.05   # 8672
 
-weight1, weight2, weight3 = 0.5, 0.35, 0.05   #8672
+outputs_ernie = get_outputs(ErnieConfig(), path_ernie)
+outputs_pair = get_outputs(RobertaPairConfig(), path_pair)
+outputs_wwm = get_outputs(RobertaLargeConfig(), path_wwm)
 
-
-config_ernie = ErnieConfig()
-config_pair = RobertaPairConfig()
-config_wwm = RobertaLargeConfig()
-
-model_pair = Bert(config_pair).cuda()
-model_wwm = Bert(config_wwm).cuda()
-model_ernie = Bert(config_ernie).cuda()
-
-model_ernie.load_state_dict(torch.load(path_ernie))
-model_pair.load_state_dict(torch.load(path_pair))
-model_wwm.load_state_dict(torch.load(path_wwm))
-
-outputs_ernie = get_outputs(config_ernie, model_ernie)
-outputs_pair = get_outputs(config_pair, model_pair)
-outputs_wwm = get_outputs(config_wwm, model_wwm)
 final_output = weight1*outputs_pair+weight2*outputs_wwm+weight3*outputs_ernie   # 设置不同模型的权重根据单个模型正确率
 max = np.max(final_output, axis=1).reshape(-1, 1)
 labels = np.where(final_output == max)[1]
