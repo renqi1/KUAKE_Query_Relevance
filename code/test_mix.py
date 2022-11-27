@@ -24,9 +24,9 @@ def get_outputs(config, path):
     model.load_state_dict(torch.load(path))
     tokenizer = BertTokenizer.from_pretrained(config.tokenizer_file)
     test_examples = read_csv(config.test_path)
-    train_features = convert_examples_to_features(examples=test_examples, tokenizer=tokenizer,
+    test_features = convert_examples_to_features(examples=test_examples, tokenizer=tokenizer,
                                                   max_length=config.pad_size, data_type='test')
-    test_dataset = BuildDataSet(train_features)
+    test_dataset = BuildDataSet(test_features)
     test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
     outputs = []
     model.eval()
