@@ -174,14 +174,6 @@ def model_train(config, model, train_iter, dev_iter=None):
                 logger.info(msg.format(epoch_batch, len(train_iter), epoch+1, config.num_train_epochs, loss.cpu().data.item(), train_acc, dev_loss, dev_acc, time_dif, improve))
                 print(msg.format(epoch_batch, len(train_iter), epoch+1, config.num_train_epochs, loss.cpu().data.item(), train_acc, dev_loss, dev_acc, time_dif, improve))
 
-            if config.early_stop and global_batch - last_improve > config.require_improvement:
-                # 验证集loss超过1000batch没下降，结束训练
-                logger.info("No optimization for a long time, auto-stopping...")
-                flag = True
-                break
-        if flag:
-            break
-
 
 def model_evaluate(config, model, data_iter):
     model.eval()
