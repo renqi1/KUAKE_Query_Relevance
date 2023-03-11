@@ -67,9 +67,9 @@ Roberta_large_pair:https://github.com/CLUEbenchmark/CLUEPretrainedModels
 
 my_model:
 
-链接：https://pan.baidu.com/s/12XBkbryYvu-atHAhHoTP-w?pwd=lc2g 
+链接：https://pan.baidu.com/s/1bREYalWZawjrKQJZByLr2A?pwd=104a 
 
-提取码：lc2g
+提取码：104a
 
 **融合模型正确率**
 
