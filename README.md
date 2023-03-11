@@ -65,6 +65,12 @@ Roberta_large_pair:https://github.com/CLUEbenchmark/CLUEPretrainedModels
 
 - Roberta_large_pair: 0.8578
 
+my_model:
+
+链接：https://pan.baidu.com/s/12XBkbryYvu-atHAhHoTP-w?pwd=lc2g 
+
+提取码：lc2g
+
 **融合模型正确率**
 
 我反感模型融合，纯粹是为了提升正确率提升排名，浪费大量的算力获取一点不大的提升。
